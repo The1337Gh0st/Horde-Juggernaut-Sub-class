@@ -1,5 +1,5 @@
 SUBCLASS.PrintName = "Juggernaut" -- Required
-SUBCLASS.UnlockCost = 0
+SUBCLASS.UnlockCost = 100
 SUBCLASS.ParentClass = HORDE.Class_Heavy -- Required for any new classes
 SUBCLASS.Icon = "subclasses/golem.png" -- Required
 SUBCLASS.Description = [[
