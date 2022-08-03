@@ -14,8 +14,8 @@ Complexity: EASY
 --{2} decreased walking and running speed.
 
 PERK.Params = {
-    [1] = {percent = true, base = 0, level = 1, max = 25, classname = HORDE.Class_Juggernaut},
-	[2] = {percent = true, base = 0, level = 1, max = 25, classname = HORDE.Class_Juggernaut},
+    [1] = {percent = true, base = 0, level = 1, max = 25, classname = "Juggernaut"},
+	[2] = {percent = true, base = 0, level = 1, max = 25, classname = "Juggernaut"},
 }
 
 PERK.Hooks = {}
