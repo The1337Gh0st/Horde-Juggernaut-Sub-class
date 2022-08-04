@@ -1,5 +1,5 @@
 PERK.PrintName = "Heavy Armor"
-PERK.Description = "Max health and max armor is set to 150. \n+10 damage block."
+PERK.Description = "Max health and max armor is set to 150. \n+10 damage block. \n25% physical damage resist."
 PERK.Icon = "materials/perks/liquid_armor.png"
 PERK.Hooks = {}
 
@@ -20,26 +20,26 @@ PERK.Hooks.Horde_OnUnsetPerk = function(ply, perk)
 	ply:SetArmor(100)
 	end
     end
-	--if ply:Horde_GetPerk("juggernaut_tank") and ply:Armor() >= 100 then
-	--ply:SetArmor(100)
-	--end
 end
 
---PERK.Hooks.Horde_OnSetPerk = function(ply, perk)
-  --  if SERVER and perk == "juggernaut_tank" then
-   --     ply:SetMaxArmor(150)
-   --     ply:SetArmor(0)
-  --  end
---end
-
---PERK.Hooks.Horde_OnUnsetPerk = function(ply, perk)
-   -- if SERVER and perk == "juggernaut_tank" then
-   --     ply:SetMaxArmor(100)
-   --     ply:SetArmor(0)
-  --  end
---end
 
 PERK.Hooks.Horde_OnPlayerDamageTaken = function (ply, dmginfo, bonus)
     if not ply:Horde_GetPerk("juggernaut_tank") then return end
     bonus.block = bonus.block + 10
+end
+
+PERK.Hooks.Horde_OnPlayerDamageTaken = function (ply, dmginfo, bonus)
+    if not ply:Horde_GetPerk("juggernaut_tank") then return end
+    if dmginfo:GetDamageType() == DMG_PURE then
+        bonus.resistance = bonus.resistance + 0.25
+    end
+	if dmginfo:GetDamageType() == DMG_PHYSICAL then
+        bonus.resistance = bonus.resistance + 0.25
+    end
+	if dmginfo:GetDamageType() == DMG_BLUNT then
+        bonus.resistance = bonus.resistance + 0.25
+    end
+	if dmginfo:GetDamageType() == DMG_SLASH then
+        bonus.resistance = bonus.resistance + 0.25
+    end
 end

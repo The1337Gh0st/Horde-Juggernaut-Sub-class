@@ -1,5 +1,5 @@
 PERK.PrintName = "Bionic Legs"
-PERK.Description = "Increase your speed by 170%."
+PERK.Description = "Increase your speed by 208.75%."
 PERK.Icon = "materials/perks/phase_walk.png"
 --local speed = 250
 --local runningspeed = 500
@@ -29,7 +29,7 @@ PERK.Hooks = {}
 
 hook.Add("Horde_PlayerMoveBonus", "Horde_JuggernautPerkSpeed", function(ply, bonus)
     if ply:Horde_GetPerk("juggernaut_speed") then
-       bonus.walkspd = bonus.walkspd * 1.7
-       bonus.sprintspd = bonus.sprintspd * 1.7
+       bonus.walkspd = bonus.walkspd * 2.0875
+       bonus.sprintspd = bonus.sprintspd * 2.0875
     end
 end)
