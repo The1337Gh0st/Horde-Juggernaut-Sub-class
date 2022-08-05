@@ -1,7 +1,10 @@
 PERK.PrintName = "Hollow-point Rounds"
-PERK.Description = "Guns have 30mm extra penetration. \nDeal 300% extra damage to limbs. Deal 25% more ballistic damage against elites. \n 25% ballistic damage boost against bosses."
+PERK.Description = "Guns have 30mm extra penetration. \nDeal {1} extra damage to limbs. Deal {2} more ballistic damage against non-elites. \n {2} increased headshot damage."
 PERK.Icon = "materials/perks/kinetic_impact.png"
-
+PERK.Params = {
+    [1] = {value = 3, percent = true},
+    [2] = {value = 0.25, percent = true}
+}
 PERK.Hooks = {}
 local limbs = {HITGROUP_LEFTARM, HITGROUP_LEFTLEG, HITGROUP_RIGHTARM, HITGROUP_RIGHTLEG}
 -- RecalcAllBuffs() may be necessary for certain stats that aren't calculated all the time.
@@ -35,18 +38,28 @@ PERK.Hooks.Hook_BulletHit = function(wpn, data)
     if SERVER and IsValid(attacker) and attacker:IsPlayer()
             and (table.HasValue(limbs, data.tr.HitGroup))
             and attacker:Horde_GetPerk("juggernaut_penetration") then
-        data.damage = data.damage * 4
+        data.damage = data.damage * 4		
     end
+	if SERVER and IsValid(attacker) and attacker:IsPlayer()
+            and data.tr.HitGroup == HITGROUP_HEAD and attacker:Horde_GetPerk("juggernaut_penetration") then
+        data.damage = data.damage * 1.25
+		end
 end
+
+--PERK.Hooks.Hook_BulletHit = function(wpn, data)
+  --  local attacker = wpn:GetOwner()
+  --  if SERVER and IsValid(attacker) and attacker:IsPlayer()
+    --        and data.tr.HitGroup == HITGROUP_HEAD and attacker:Horde_GetPerk("juggernaut_penetration") then
+    --    data.damage = data.damage * 1.25
+   -- end
+--end
 
 PERK.Hooks.Horde_OnPlayerDamage = function (ply, npc, bonus, hitgroup, dmginfo)
     if not ply:Horde_GetPerk("juggernaut_penetration") then return end
     if HORDE:IsBallisticDamage(dmginfo) then
-        if npc:GetVar("is_elite") then
+        if not npc:GetVar("is_elite") then
             bonus.increase = bonus.increase + 0.25
         end
-		if npc:GetVar("is_boss") then
-            bonus.increase = bonus.increase + 0.25
-        end
+		
     end
 end

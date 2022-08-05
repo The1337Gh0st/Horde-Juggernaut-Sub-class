@@ -4,7 +4,8 @@ SUBCLASS.ParentClass = HORDE.Class_Heavy -- Required for any new classes
 SUBCLASS.Icon = "subclasses/golem.png" -- Required
 SUBCLASS.Description = [[
 Heavy subclass.
-Focuses on improving guns and being tanky.]] -- Required
+Focuses on improving guns and being tanky,
+but moving speed is reduced.]] -- Required
 SUBCLASS.BasePerk = "juggernaut_base"
 SUBCLASS.Perks = {
     [1] = {title = "Provisions", choices = {"juggernaut_magazine", "juggernaut_tank"}},

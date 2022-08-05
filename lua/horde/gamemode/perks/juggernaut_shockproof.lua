@@ -1,30 +1,42 @@
 PERK.PrintName = "Shockproof"
-PERK.Description = "75% damage resist to non-melee damage. \nRegen {1} max health per second."
+PERK.Description = "{1} damage resist to non-melee damage. \nRegen {2} max health per second. \nImmunity to poison damage, necrosis, and bleeding."
 PERK.Icon = "materials/perks/ballistic_shock.png"
 PERK.Hooks = {}
 PERK.Params = {
-    [1] = {value = 0.02, percent = true},
+    [1] = {value = 0.5, percent = true},
+	[2] = {value = 0.02, percent = true}
 }
 
 PERK.Hooks.Horde_OnPlayerDamageTaken = function (ply, dmginfo, bonus)
     if not ply:Horde_GetPerk("juggernaut_shockproof") then return end
     if dmginfo:GetDamageType() == DMG_BLAST then
-        bonus.resistance = bonus.resistance + 0.75
+        bonus.resistance = bonus.resistance + 0.50
     end
 	if dmginfo:GetDamageType() == DMG_BALLISTIC then
-        bonus.resistance = bonus.resistance + 0.75
+        bonus.resistance = bonus.resistance + 0.50
     end
 	if dmginfo:GetDamageType() == DMG_FIRE then
-        bonus.resistance = bonus.resistance + 0.75
+        bonus.resistance = bonus.resistance + 0.50
     end
 	if dmginfo:GetDamageType() == DMG_COLD then
-        bonus.resistance = bonus.resistance + 0.75
+        bonus.resistance = bonus.resistance + 0.50
     end
 	if dmginfo:GetDamageType() == DMG_LIGHTNING then
-        bonus.resistance = bonus.resistance + 0.75
+        bonus.resistance = bonus.resistance + 0.50
     end
 	if dmginfo:GetDamageType() == DMG_POISON then
-        bonus.resistance = bonus.resistance + 0.75
+        bonus.resistance = bonus.resistance + 1
+    end
+end
+
+PERK.Hooks.Horde_OnPlayerDebuffApply = function (ply, debuff, bonus)
+    if ply:Horde_GetPerk("juggernaut_shockproof") and debuff == HORDE.Status_Bleeding then
+        bonus.apply = 0
+        return true
+    end
+	if ply:Horde_GetPerk("juggernaut_shockproof") and debuff == HORDE.Status_Necrosis then
+        bonus.apply = 0
+        return true
     end
 end
 

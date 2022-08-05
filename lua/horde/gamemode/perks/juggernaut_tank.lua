@@ -1,7 +1,10 @@
 PERK.PrintName = "Heavy Armor"
-PERK.Description = "Max health and max armor is set to 150. \n+10 damage block. \n25% physical damage resist."
+PERK.Description = "Max health and max armor is set to 150. \n+10 damage block. \n{1} extra physical damage resist."
 PERK.Icon = "materials/perks/liquid_armor.png"
 PERK.Hooks = {}
+PERK.Params = {
+    [1] = {value = 0.25, percent = true},
+}
 
 PERK.Hooks.Horde_OnSetPerk = function(ply, perk)
     if SERVER and perk == "juggernaut_tank" then

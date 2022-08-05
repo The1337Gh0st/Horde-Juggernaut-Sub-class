@@ -1,7 +1,10 @@
 PERK.PrintName = "Luxury Magazine"
-PERK.Description = "50% increase in magazine size and 50% faster reload speed."
+PERK.Description = "{1} increase in magazine size and {1} faster reload speed."
 PERK.Icon = "materials/perks/pioneer.png"
 PERK.Hooks = {}
+PERK.Params = {
+    [1] = {value = 0.5, percent = true},
+}
 
 local recalc = function(ply, perk)
     if perk == "juggernaut_reload" then

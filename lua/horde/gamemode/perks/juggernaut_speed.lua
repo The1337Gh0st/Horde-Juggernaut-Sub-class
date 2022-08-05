@@ -1,6 +1,9 @@
 PERK.PrintName = "Bionic Legs"
-PERK.Description = "Increase your speed by 170%."
+PERK.Description = "Increase your speed by {1}."
 PERK.Icon = "materials/perks/phase_walk.png"
+PERK.Params = {
+    [1] = {value = 1.7, percent = true},
+}
 --local speed = 250
 --local runningspeed = 500
 
