@@ -18,7 +18,7 @@ PERK.Params = {
     [1] = {percent = true, base = 0, level = 0.01, max = 0.25, classname = "Juggernaut"},
 	[2] = {value = 0.01, percent = true},
 	[3] = {value = 0.25, percent = true},
-	[4] = {value = 0.85, percent = true},
+	[4] = {value = 0.75, percent = true},
 	[5] = {percent = true, base = 0.5, level = 0.01, max = 0.75, classname = "Juggernaut"},
 }
 

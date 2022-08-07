@@ -28,21 +28,8 @@ end
 
 PERK.Hooks.Horde_OnPlayerDamageTaken = function (ply, dmginfo, bonus)
     if not ply:Horde_GetPerk("juggernaut_tank") then return end
-    bonus.block = bonus.block + 10
-end
-
-PERK.Hooks.Horde_OnPlayerDamageTaken = function (ply, dmginfo, bonus)
-    if not ply:Horde_GetPerk("juggernaut_tank") then return end
-    if dmginfo:GetDamageType() == DMG_PURE then
-        bonus.resistance = bonus.resistance + 0.25
-    end
-	if dmginfo:GetDamageType() == DMG_PHYSICAL then
-        bonus.resistance = bonus.resistance + 0.25
-    end
-	if dmginfo:GetDamageType() == DMG_BLUNT then
-        bonus.resistance = bonus.resistance + 0.25
-    end
-	if dmginfo:GetDamageType() == DMG_SLASH then
-        bonus.resistance = bonus.resistance + 0.25
+	bonus.block = bonus.block + 10
+    if HORDE:IsPhysicalDamage(dmginfo) then
+       bonus.resistance = bonus.resistance + 0.25
     end
 end

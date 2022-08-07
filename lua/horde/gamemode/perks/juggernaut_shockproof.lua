@@ -7,25 +7,23 @@ PERK.Params = {
 	[2] = {value = 0.02, percent = true}
 }
 
+
 PERK.Hooks.Horde_OnPlayerDamageTaken = function (ply, dmginfo, bonus)
-    if not ply:Horde_GetPerk("juggernaut_shockproof") then return end
-    if dmginfo:GetDamageType() == DMG_BLAST then
-        bonus.resistance = bonus.resistance + 0.50
+    if not ply:Horde_GetPerk("juggernaut_shockproof")  then return end
+    if HORDE:IsFireDamage(dmginfo) then
+        bonus.resistance = bonus.resistance + 0.5
     end
-	if dmginfo:GetDamageType() == DMG_BALLISTIC then
-        bonus.resistance = bonus.resistance + 0.50
+	if HORDE:IsBlastDamage(dmginfo) then
+       bonus.resistance = bonus.resistance + 0.5
     end
-	if dmginfo:GetDamageType() == DMG_FIRE then
-        bonus.resistance = bonus.resistance + 0.50
+	if HORDE:IsColdDamage(dmginfo) then
+       bonus.resistance = bonus.resistance + 0.5
     end
-	if dmginfo:GetDamageType() == DMG_COLD then
-        bonus.resistance = bonus.resistance + 0.50
+	if HORDE:IsLightningDamage(dmginfo) then
+       bonus.resistance = bonus.resistance + 0.5
     end
-	if dmginfo:GetDamageType() == DMG_LIGHTNING then
-        bonus.resistance = bonus.resistance + 0.50
-    end
-	if dmginfo:GetDamageType() == DMG_POISON then
-        bonus.resistance = bonus.resistance + 1
+	if HORDE:IsPoisonDamage(dmginfo) then
+       bonus.resistance = bonus.resistance + 1
     end
 end
 
@@ -35,6 +33,10 @@ PERK.Hooks.Horde_OnPlayerDebuffApply = function (ply, debuff, bonus)
         return true
     end
 	if ply:Horde_GetPerk("juggernaut_shockproof") and debuff == HORDE.Status_Necrosis then
+        bonus.apply = 0
+        return true
+    end
+	if ply:Horde_GetPerk("juggernaut_shockproof") and debuff == HORDE.Status_Break then
         bonus.apply = 0
         return true
     end
