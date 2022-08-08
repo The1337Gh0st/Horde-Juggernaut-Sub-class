@@ -1,4 +1,4 @@
-PERK.PrintName = "Hollow-point Rounds"
+PERK.PrintName = "Shredder"
 PERK.Description = "Guns have 30mm extra penetration. \nDeal {1} extra damage to limbs. Deal {2} more ballistic damage against non-elites. \n {2} increased headshot damage."
 PERK.Icon = "materials/perks/kinetic_impact.png"
 PERK.Params = {

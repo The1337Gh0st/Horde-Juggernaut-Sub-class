@@ -38,20 +38,20 @@ PERK.Hooks.Horde_OnPlayerDamageTaken = function(ply, dmginfo, bonus)
     bonus.resistance = bonus.resistance + ply:Horde_GetPerkLevelBonus("juggernaut_base")
 end
 
-
-
---hook.Add("Horde_PlayerMoveBonus", "Horde_JuggernautBaseSpeed", function(ply, bonus)
-  --  if ply:Horde_GetPerk("juggernaut_base") then
-   --     bonus.walkspd = bonus.walkspd * 0.6
-   --     bonus.sprintspd = bonus.sprintspd * 0.6
-   -- end
---end)
-
-PERK.Hooks.Horde_OnPlayerDamage = function (ply, npc, bonus, hitgroup, dmginfo)
-    if ply:Horde_GetPerk("juggernaut_base") then
-       bonus.increase = bonus.increase + ply:Horde_GetPerkLevelBonus("juggernaut_base")
+PERK.Hooks.OnPlayerDamage = function (ply, npc, bonus, hitgroup, dmginfo)
+    local attacker = dmginfo:GetAttacker()
+    if attacker:IsPlayer() and (dmginfo:IsDamageType(DMG_BALLISTIC) or dmginfo:IsBallisticDamage())
+            and attacker:Horde_GetPerk("juggernaut_base") then
+        bonus.more = bonus.more * ply:Horde_GetPerkLevelBonus("juggernaut_base")
     end
 end
+
+
+--PERK.Hooks.Horde_OnPlayerDamage = function (ply, npc, bonus, hitgroup, dmginfo)
+  --  if ply:Horde_GetPerk("juggernaut_base") then
+  --     bonus.increase = bonus.increase + ply:Horde_GetPerkLevelBonus("juggernaut_base")
+   -- end
+--end
 
 
 hook.Add("Horde_PlayerMoveBonus", "Horde_JuggernautBaseLevelSpeed", function(ply, bonus)
