@@ -7,10 +7,7 @@ PERK.Params = {
 
 PERK.Hooks = {}
 PERK.Hooks.Horde_OnPlayerDamagePost = function (ply, npc, bonus, hitgroup, dmginfo)
-    if ply:Horde_GetPerk("juggernaut_armor") and (HORDE:IsBallisticDamage(dmginfo)) then
+    if ply:Horde_GetPerk("juggernaut_armor") and HORDE:IsBallisticDamage(dmginfo) and ply:Armor() <= (ply:GetMaxArmor() - 1) then
 	ply:SetArmor(ply:Armor() + 1)
     end
-	if ply:Horde_GetPerk("juggernaut_armor") and ply:Armor() >= ply:GetMaxArmor() then
-	ply:SetArmor(ply:GetMaxArmor())
-	end
 end
