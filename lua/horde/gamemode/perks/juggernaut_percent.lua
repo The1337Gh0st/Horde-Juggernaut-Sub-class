@@ -1,5 +1,5 @@
 PERK.PrintName = "Pack-a-Punch"
-PERK.Description = "{1} increased Ballistic damage. Additional {2} Ballistic damage against bosses. \nBallistic damage deals {3} to {4} of an enemy's current health as extra damage. \n Percent damage does not apply against bosses. {5} increase in RPM."
+PERK.Description = "{1} increased Ballistic damage. \nBallistic damage deals {3} to {4} of an enemy's current health as bonus damage. \nPercent damage does not apply against bosses."
 PERK.Icon = "materials/perks/headhunter.png"
 PERK.Params = {
     [1] = {value = 0.15, percent = true},
@@ -14,23 +14,9 @@ PERK.Hooks.Horde_OnPlayerDamage = function (ply, npc, bonus, hitgroup, dmginfo)
     if HORDE:IsBallisticDamage(dmginfo) then
             bonus.increase = bonus.increase + 0.15
         
-		if npc:GetVar("is_boss") then
-            bonus.increase = bonus.increase + 0.35
-        end
 		
 		if not npc:GetVar("is_boss") then
         bonus.post_add = npc:Health() * math.min(0.08, dmginfo:GetDamage() / 2000)
 		end
-    end
-end
-
--- You can modify ArcCW weapon stats with specially named hooks.
--- Specifically: O_Hook_STAT for overrides, M_Hook_STAT for multipliers and A_Hook_STAT for addition.
--- Edit the value in data.current
-PERK.Hooks.M_Hook_Mult_RPM = function(wpn, data)
-    local ply = wpn:GetOwner()
-	if wpn.ManualAction then return false end
-    if IsValid(ply) and ply:IsPlayer() and ply:Horde_GetPerk("juggernaut_percent") then
-        data.mult = (data.mult or 1) + 0.25
     end
 end
