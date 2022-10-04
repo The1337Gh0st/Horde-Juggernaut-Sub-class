@@ -8,17 +8,9 @@ PERK.Params = {
 	[3] = {value = 0.10, percent = true},
 }
 
-PERK.Hooks.Horde_OnSetPerk = function(ply, perk)
-    if SERVER and perk == "juggernaut_tank" then
-        ply:SetMaxHealth(150)
-        ply:SetHealth(ply:GetMaxHealth())
-    end
-end
-
-PERK.Hooks.Horde_OnUnsetPerk = function(ply, perk)
-    if SERVER and perk == "juggernaut_tank" then
-        ply:SetMaxHealth(100)
-        ply:SetHealth(ply:GetMaxHealth())
+PERK.Hooks.Horde_OnSetMaxHealth = function(ply, bonus)
+    if SERVER and ply:Horde_GetPerk("juggernaut_tank") then
+        bonus.increase = bonus.increase + 0.5
     end
 end
 

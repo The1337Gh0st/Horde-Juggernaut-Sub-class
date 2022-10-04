@@ -1,5 +1,5 @@
 PERK.PrintName = "Shockproof"
-PERK.Description = "Gain {1} damage resist to non-melee damage. \nRegen {2} max health per second. \nImmunity to poison damage, necrosis, and bleeding."
+PERK.Description = "Gain {1} damage resist to non-melee damage. \nRegen {2} max health per second. \nImmunity to poison damage and bleeding."
 PERK.Icon = "materials/perks/ballistic_shock.png"
 PERK.Hooks = {}
 PERK.Params = {
@@ -32,10 +32,6 @@ PERK.Hooks.Horde_OnPlayerDebuffApply = function (ply, debuff, bonus)
         bonus.apply = 0
         return true
     end
-	if ply:Horde_GetPerk("juggernaut_shockproof") and debuff == HORDE.Status_Necrosis then
-        bonus.apply = 0
-        return true
-    end
 	if ply:Horde_GetPerk("juggernaut_shockproof") and debuff == HORDE.Status_Break then
         bonus.apply = 0
         return true
@@ -44,13 +40,12 @@ end
 
 PERK.Hooks.Horde_OnSetPerk = function(ply, perk)
     if SERVER and perk == "juggernaut_shockproof" then
-        ply:Horde_SetHealthRegenEnabled(true)
         ply:Horde_SetHealthRegenPercentage(0.02)
     end
 end
 
 PERK.Hooks.Horde_OnUnsetPerk = function(ply, perk)
     if SERVER and perk == "juggernaut_shockproof" then
-        ply:Horde_SetHealthRegenEnabled(nil)
+        ply:Horde_SetHealthRegenPercentage(0)
     end
 end

@@ -53,12 +53,19 @@ end
    -- end
 --end
 
+--hook.Add("Horde_PlayerMoveBonus", "Horde_JuggernautBaseLevelSpeed", function(ply, bonus)
+  --  if ply:Horde_GetPerk("juggernaut_base") then
+--	local j = ply:Horde_GetPerkLevelBonus("juggernaut_base")
+  --      bonus.walkspd = bonus.walkspd * (0.5 + j)
+ --           bonus.sprintspd = bonus.sprintspd * (0.5 + j)
+ --   end
+--end)
 
-hook.Add("Horde_PlayerMoveBonus", "Horde_JuggernautBaseLevelSpeed", function(ply, bonus)
-    if ply:Horde_GetPerk("juggernaut_base") then
+
+PERK.Hooks.Horde_PlayerMoveBonus = function(ply, bonus_walk, bonus_run)
+    if not ply:Horde_GetPerk("juggernaut_base") then return end
 	local j = ply:Horde_GetPerkLevelBonus("juggernaut_base")
-        bonus.walkspd = bonus.walkspd * (0.5 + j)
-            bonus.sprintspd = bonus.sprintspd * (0.5 + j)
-    end
-end)
+    bonus_walk.increase = bonus_walk.increase + (-0.5 + j)
+    bonus_run.increase = bonus_run.increase + (-0.5 + j)
+end
 
