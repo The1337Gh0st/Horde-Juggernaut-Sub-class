@@ -22,6 +22,7 @@ PERK.Params = {
 	[5] = {percent = true, base = 0.5, level = 0.01, max = 0.75, classname = "Juggernaut"},
 }
 
+PERK.Icon = "materials/subclasses/juggernaut.png"
 	
 PERK.Hooks = {}
 

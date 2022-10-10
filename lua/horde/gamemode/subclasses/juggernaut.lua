@@ -1,7 +1,7 @@
 SUBCLASS.PrintName = "Juggernaut" -- Required
 SUBCLASS.UnlockCost = 100
 SUBCLASS.ParentClass = HORDE.Class_Heavy -- Required for any new classes
-SUBCLASS.Icon = "subclasses/golem.png" -- Required
+SUBCLASS.Icon = "subclasses/juggernaut.png" -- Required
 SUBCLASS.Description = [[
 Heavy subclass.
 Focuses on improving guns and being tanky,
