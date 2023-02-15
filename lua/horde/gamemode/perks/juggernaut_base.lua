@@ -4,10 +4,11 @@ PERK.Description = [[
 The Juggernaut is a sub-class of the Heavy that focuses on improving its guns and being tankier than Heavy in exchange for being slower.
 Complexity: EASY
 
+{6} reduced walking and running speed.
 
-{1} increased Global damage resistance. ({2} per level, up to {3})
-{1} increased ballistic damage. ({2} per level, up to {3})
-{5} walking and running speed. ({2} per level, up to {4})
+{5} of Ballistic damage is converted into Stun. ({7} base, {8} per level, up to {9})
+{1} additional max health. ({2} base, {3} per level, up to {4})
+
 ]]
 
 --40% less walking and running speed.
@@ -15,11 +16,15 @@ Complexity: EASY
 --{2} decreased walking and running speed.
 
 PERK.Params = {
-    [1] = {percent = true, base = 0, level = 0.01, max = 0.25, classname = "Juggernaut"},
-	[2] = {value = 0.01, percent = true},
-	[3] = {value = 0.25, percent = true},
-	[4] = {value = 0.75, percent = true},
-	[5] = {percent = true, base = 0.5, level = 0.01, max = 0.75, classname = "Juggernaut"},
+    [1] = {base = 0, level = 1, max = 25, classname = "Juggernaut"},
+	[2] = {value = 0},
+	[3] = {value = 1},
+	[4] = {value = 25},
+	[5] = {percent = true, base = 0.2, level = 0.008, max = 0.4, classname = "Juggernaut"},
+	[6] = {value = 0.4, percent = true},
+	[7] = {value = 0.2, percent = true},
+	[8] = {value = 0.008, percent = true},
+	[9] = {value = 0.4, percent = true},
 }
 
 PERK.Icon = "materials/subclasses/juggernaut.png"
@@ -34,39 +39,24 @@ PERK.Hooks.Horde_PrecomputePerkLevelBonus = function (ply)
     end
 end
 
-PERK.Hooks.Horde_OnPlayerDamageTaken = function(ply, dmginfo, bonus)
-    if not ply:Horde_GetPerk("juggernaut_base")  then return end
-    bonus.resistance = bonus.resistance + ply:Horde_GetPerkLevelBonus("juggernaut_base")
-end
-
-PERK.Hooks.OnPlayerDamage = function (ply, npc, bonus, hitgroup, dmginfo)
+PERK.Hooks.PostEntityTakeDamage = function (ent, dmginfo, took)
     local attacker = dmginfo:GetAttacker()
-    if attacker:IsPlayer() and (dmginfo:IsDamageType(DMG_BALLISTIC) or dmginfo:IsBallisticDamage())
-            and attacker:Horde_GetPerk("juggernaut_base") then
-        bonus.more = bonus.more * ply:Horde_GetPerkLevelBonus("juggernaut_base")
+    if took and ent:IsNPC() and attacker:IsPlayer() and attacker:Horde_GetPerk("juggernaut_base") and HORDE:IsBallisticDamage(dmginfo) then
+        ent:Horde_AddDebuffBuildup(HORDE.Status_Stun, dmginfo:GetDamage() / (5 - (attacker:Horde_GetPerkLevelBonus("juggernaut_base") * 0.1)), attacker, ent:GetPos())
     end
 end
 
-
---PERK.Hooks.Horde_OnPlayerDamage = function (ply, npc, bonus, hitgroup, dmginfo)
-  --  if ply:Horde_GetPerk("juggernaut_base") then
-  --     bonus.increase = bonus.increase + ply:Horde_GetPerkLevelBonus("juggernaut_base")
-   -- end
---end
-
---hook.Add("Horde_PlayerMoveBonus", "Horde_JuggernautBaseLevelSpeed", function(ply, bonus)
-  --  if ply:Horde_GetPerk("juggernaut_base") then
---	local j = ply:Horde_GetPerkLevelBonus("juggernaut_base")
-  --      bonus.walkspd = bonus.walkspd * (0.5 + j)
- --           bonus.sprintspd = bonus.sprintspd * (0.5 + j)
- --   end
---end)
+PERK.Hooks.Horde_OnSetMaxHealth = function(ply, bonus)
+    if SERVER and ply:Horde_GetPerk("juggernaut_base") then
+        bonus.increase = bonus.increase + (ply:Horde_GetPerkLevelBonus("juggernaut_base"))
+    end
+end
 
 
 PERK.Hooks.Horde_PlayerMoveBonus = function(ply, bonus_walk, bonus_run)
     if not ply:Horde_GetPerk("juggernaut_base") then return end
 	local j = ply:Horde_GetPerkLevelBonus("juggernaut_base")
-    bonus_walk.increase = bonus_walk.increase + (-0.5 + j)
-    bonus_run.increase = bonus_run.increase + (-0.5 + j)
+    bonus_walk.increase = bonus_walk.increase + (-0.4)
+    bonus_run.increase = bonus_run.increase + (-0.4)
 end
 
