@@ -2,7 +2,7 @@ PERK.PrintName = "High-Explosive Rounds"
 PERK.Description = "Ballistic damage has a {2} chance to cause an explosion. \nExplosion deals {1} base blast damage."
 PERK.Icon = "materials/perks/seismic_wave.png"
 PERK.Params = {
-    [1] = {value = 25},
+    [1] = {value = 15},
     [2] = {value = 0.25, percent = true}
 }
 PERK.Hooks = {}
@@ -28,7 +28,7 @@ function entmeta:Horde_AddHighExplosive(damage, inflictor, attacker)
         dmginfo:SetInflictor(inflictor)
 		dmginfo:SetAttacker(attacker)
 		dmginfo:SetDamageType(DMG_BLAST)
-		dmginfo:SetDamage(25)
+		dmginfo:SetDamage(15)
         util.BlastDamageInfo(dmginfo, inflictor:GetPos(), 200)
         local e = EffectData()
         e:SetOrigin(inflictor:GetPos())
