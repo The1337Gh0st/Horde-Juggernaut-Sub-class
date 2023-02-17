@@ -1,5 +1,5 @@
 PERK.PrintName = "Heavy Plating"
-PERK.Description = "+{1} max health. +{2} damage block. \n+{3} physical damage resistance. Gain immunity to bleeding."
+PERK.Description = "+{2} damage block. \n+{3} physical damage resistance. Gain immunity to bleeding."
 PERK.Icon = "materials/perks/liquid_armor.png"
 PERK.Hooks = {}
 PERK.Params = {
@@ -7,12 +7,6 @@ PERK.Params = {
 	[2] = {value = 5},
 	[3] = {value = 0.20, percent = true},
 }
-
-PERK.Hooks.Horde_OnSetMaxHealth = function(ply, bonus)
-    if SERVER and ply:Horde_GetPerk("juggernaut_heavy_plating") then
-        bonus.increase = bonus.increase + 0.25
-    end
-end
 
 
 PERK.Hooks.Horde_OnPlayerDamageTaken = function (ply, dmginfo, bonus)

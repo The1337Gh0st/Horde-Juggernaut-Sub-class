@@ -17,9 +17,9 @@ Complexity: EASY
 
 PERK.Params = {
     [1] = {base = 0, level = 1, max = 25, classname = "Juggernaut"},
-	[2] = {value = 0},
+	[2] = {value = 25},
 	[3] = {value = 1},
-	[4] = {value = 25},
+	[4] = {value = 50},
 	[5] = {percent = true, base = 0.2, level = 0.008, max = 0.4, classname = "Juggernaut"},
 	[6] = {value = 0.4, percent = true},
 	[7] = {value = 0.2, percent = true},
@@ -48,7 +48,7 @@ end
 
 PERK.Hooks.Horde_OnSetMaxHealth = function(ply, bonus)
     if SERVER and ply:Horde_GetPerk("juggernaut_base") then
-        bonus.increase = bonus.increase + (ply:Horde_GetPerkLevelBonus("juggernaut_base"))
+        bonus.increase = bonus.increase + (25 + ply:Horde_GetPerkLevelBonus("juggernaut_base"))
     end
 end
 
