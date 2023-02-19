@@ -48,7 +48,7 @@ end
 
 PERK.Hooks.Horde_OnSetMaxHealth = function(ply, bonus)
     if SERVER and ply:Horde_GetPerk("juggernaut_base") then
-        bonus.increase = bonus.increase + (25 + ply:Horde_GetPerkLevelBonus("juggernaut_base"))
+        bonus.increase = bonus.increase + (0.25 + ply:Horde_GetPerkLevelBonus("juggernaut_base") )
     end
 end
 
