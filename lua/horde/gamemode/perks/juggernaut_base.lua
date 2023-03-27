@@ -16,7 +16,7 @@ Complexity: EASY
 --{2} decreased walking and running speed.
 
 PERK.Params = {
-    [1] = {base = 0, level = 1, max = 25, classname = "Juggernaut"},
+    [1] = {base = 25, level = 1, max = 50, classname = "Juggernaut"},
 	[2] = {value = 25},
 	[3] = {value = 1},
 	[4] = {value = 50},
