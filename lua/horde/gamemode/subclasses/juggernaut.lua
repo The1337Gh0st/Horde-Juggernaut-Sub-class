@@ -10,8 +10,8 @@ SUBCLASS.BasePerk = "juggernaut_base"
 SUBCLASS.Perks = {
     [1] = {title = "Provisions", choices = {"juggernaut_supply_drop", "juggernaut_jetpack"}},
     [2] = {title = "Super Serum", choices = {"juggernaut_heavy_plating", "juggernaut_shockproof"}},
-    [3] = {title = "Bigger Bullets", choices = {"juggernaut_shrapnel", "juggernaut_he_rounds"}},
-    [4] = {title = "Zenith", choices = {"juggernaut_bionic_legs", "juggernaut_carnivorous"}},
+    [3] = {title = "Stopping Power", choices = {"juggernaut_quality_rounds", "juggernaut_crowd_control"}},
+	[4] = {title = "Zenith", choices = {"juggernaut_carnivorous", "juggernaut_bionic_legs"}},
 } -- Required
 
 --SUBCLASS.Perks = {

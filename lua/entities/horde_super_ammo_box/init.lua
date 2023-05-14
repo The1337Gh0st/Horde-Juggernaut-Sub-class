@@ -28,10 +28,16 @@ end
 
 function ENT:StartTouch(entity)
     if not self.Removing and entity:IsPlayer() and entity:Alive() and not entity:IsBot() then
-        local given_ammo = false
+	
+	local given_ammo = false
+        local ply = entity
         for _, wpn in pairs(entity:GetWeapons()) do
+            if wpn.Primary and wpn.Primary.MaxAmmo and wpn.Primary.MaxAmmo <= ply:GetAmmoCount(wpn:GetPrimaryAmmoType()) then
+                goto cont
+            end
             local given = HORDE:GiveAmmo(entity, wpn, 1)
             given_ammo = given_ammo or given
+            ::cont::
         end
 		
 		if entity:GetActiveWeapon():GetMaxClip1() > 0 then
@@ -46,5 +52,6 @@ function ENT:StartTouch(entity)
             self.Removing = true
             self:Remove()
         end
-    end
+	
+end
 end

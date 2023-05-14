@@ -3,14 +3,14 @@ PERK.Description = "Press Shift + E to boost yourself forwards into the air. \nG
 PERK.Icon = "materials/perks/specops/smokescreen.png"
 PERK.Params = {
     [1] = {value = 0.9, percent = true},
-    [2] = {value = 15},
+    [2] = {value = 10},
 }
 
 PERK.Hooks = {}
 PERK.Hooks.Horde_OnSetPerk = function(ply, perk)
     if SERVER and perk == "juggernaut_jetpack" then
         if ply:Horde_GetPerk("juggernaut_jetpack") then
-            ply:Horde_SetPerkCooldown(15)
+            ply:Horde_SetPerkCooldown(10)
         end
         net.Start("Horde_SyncActivePerk")
             net.WriteUInt(HORDE.Status_Smokescreen, 8)

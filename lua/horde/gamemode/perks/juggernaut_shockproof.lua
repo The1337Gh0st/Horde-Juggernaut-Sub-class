@@ -1,10 +1,11 @@
 PERK.PrintName = "Shockproof"
-PERK.Description = "Gain {1} damage resist to non-physical damage and immunity to poison damage. \nRegen {2} of your max health per second."
+PERK.Description = "Gain {1} damage resist to non-physical damage and immunity to poison damage. \nRegen {2} barrier per second, up to {3}."
 PERK.Icon = "materials/perks/ballistic_shock.png"
 PERK.Hooks = {}
 PERK.Params = {
     [1] = {value = 0.25, percent = true},
-	[2] = {value = 0.02, percent = true}
+	[2] = {value = 2},
+	[3] = {value = 50}
 }
 
 
@@ -34,14 +35,21 @@ PERK.Hooks.Horde_OnPlayerDebuffApply = function (ply, debuff, bonus)
     end
 end
 
-PERK.Hooks.Horde_OnSetPerk = function(ply, perk)
-    if SERVER and perk == "juggernaut_shockproof" then
-        ply:Horde_SetHealthRegenPercentage(0.02)
+hook.Add("PlayerTick", "Horde_JuggernautBarrierRegen", function(ply, mv)
+   if SERVER then
+   if not ply:Alive() then return end
+	if not ply:Horde_GetPerk("juggernaut_shockproof") then return end
+	
+    
+    if CurTime() >= ply.Horde_JuggernautBarrierRegenCurTime + 1 then
+        ply:Horde_AddBarrierStack(math.min(3, ply:Horde_GetBarrierStack() + 3 ))
+        ply.Horde_JuggernautBarrierRegenCurTime = CurTime()
     end
-end
+	end
+end)
 
-PERK.Hooks.Horde_OnUnsetPerk = function(ply, perk)
-    if SERVER and perk == "juggernaut_shockproof" then
-        ply:Horde_SetHealthRegenPercentage(0)
-    end
-end
+hook.Add("Horde_ResetStatus", "Horde_JuggernautBarrierRegenReset", function(ply)
+ --   ply.Horde_JuggernautBarrierRegen = 0
+ --   ply.Horde_JuggernautBarrierRegenPercentage = 0
+   ply.Horde_JuggernautBarrierRegenCurTime = CurTime()
+end)
